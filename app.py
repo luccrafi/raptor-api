@@ -19,17 +19,14 @@ def get_links():
         'quiet': True,
         'no_warnings': True,
         'skip_download': True,
-        'format': 'best',
-        # Impersonate a real browser to bypass bot detection
         'extractor_args': {
             'youtube': {
-                'player_client': ['android', 'web'],
+                'player_client': ['ios'],
+                'player_skip': ['webpage', 'configs'],
             }
         },
         'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'User-Agent': 'com.google.ios.youtube/19.16.3 (iPhone16,2; U; CPU iOS 17_4_1 like Mac OS X;)',
         },
     }
 
@@ -38,9 +35,9 @@ def get_links():
             info = ydl.extract_info(url, download=False)
             formats = []
             for f in info.get('formats', []):
-                if f.get('url') and f.get('ext') in ['mp4', 'webm', 'm4a']:
+                if f.get('url') and f.get('ext') in ['mp4', 'm4a']:
                     formats.append({
-                        'quality': f.get('format_note') or str(f.get('height', '')) or f.get('ext', 'unknown'),
+                        'quality': f.get('format_note') or str(f.get('height', '')) or 'unknown',
                         'ext': f.get('ext'),
                         'url': f.get('url'),
                         'filesize': f.get('filesize') or f.get('filesize_approx'),
