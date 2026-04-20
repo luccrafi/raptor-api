@@ -19,6 +19,7 @@ def get_links():
         'quiet': True,
         'no_warnings': True,
         'skip_download': True,
+        'update_to_latest': True,
         'extractor_args': {
             'youtube': {
                 'player_client': ['ios'],
